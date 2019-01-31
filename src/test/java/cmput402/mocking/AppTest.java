@@ -1,8 +1,16 @@
 package cmput402.mocking;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import service.City;
 import stub.CityStub;
 import stub.SalaryStub;
 
@@ -48,5 +56,30 @@ public class AppTest
     	SalaryStub stub = new SalaryStub();
     	assert(2 == util.numSalaries(stub));
     	
+    }
+    
+    public void testFilterEdmontonMockito() {
+    	Util util = new Util();
+    	City mockCity = mock(City.class);
+    	
+    	    	List<String> listCities = new ArrayList<String>();
+    	listCities.add("Edmonton");
+    	listCities.add("Calgary");
+    	listCities.add("Edmonton");
+    	listCities.add("Toronto");
+    	
+    	List<String> listCities2 = new ArrayList<String>();
+    	listCities2.add("Edmonton");
+    	listCities2.add("Calgary");
+    	listCities2.add("Toronto");
+    	
+    	// Set multiple expectations
+    	when(mockCity.listCities()).thenReturn(listCities).thenReturn(listCities2);
+
+    	
+    	// Can now call them in order.
+    	assert(2 == util.filterEdmonton(mockCity));
+    	verify(mockCity).listCities(); // Ensure it was actually called
+    	assert(1 == util.filterEdmonton(mockCity));
     }
 }
