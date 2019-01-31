@@ -3,6 +3,8 @@ package cmput402.mocking;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import stub.CityStub;
+import stub.SalaryStub;
 
 /**
  * Unit test for simple App.
@@ -32,11 +34,19 @@ public class AppTest
     	assert("Abram Hindle".equals( Main.capitalizeName("abram hindle")));
     }
 
-//    /**
-//     * Rigourous Test :-)
-//     */
-//    public void testApp()
-//    {
-//        assertTrue( true );
-//    }
+    public void testFilterEdmonton() {
+    	
+    	Util util = new Util();
+    	CityStub stub = new CityStub();
+    	
+    	// We are testing filterEdmonton but passing an instance of the FAKE City object
+    	assert(3 == util.filterEdmonton(stub));
+    }
+    
+    public void testNumSalaries() {
+    	Util util = new Util();
+    	SalaryStub stub = new SalaryStub();
+    	assert(2 == util.numSalaries(stub));
+    	
+    }
 }
